@@ -1,0 +1,24 @@
+<template name="practiceInvoice">
+
+    Invoice <a href="{{ddxUrl data.lab}}/finances/invoice/id/{{data.case.invoice.id}}">{{data.case.invoice.id}}</a>
+    from <a href="{{ddxUrl data.lab}}">{{data.lab.name}}</a>
+    for case <a class="case"
+                data-id="{{data.case.id}}"
+                data-labid="{{data.lab.id}}"
+                href="{{ddxUrl data.lab}}/cases/case/id/{{data.case.id}}">#{{data.case.id}}</a>
+
+    {{#if data.ebilling_accounts}}
+
+        <div class="changes">
+
+            eInvoice sent to
+
+            {{#each data.ebilling_accounts}}
+
+                <a href="{{ddxUrl}}/practice_portal/user?id={{account.id}}" title="{{account.email}}">{{account.full_name}}</a>
+
+            {{/each}}
+        </div>
+    {{/if}}
+
+</template>

@@ -1,0 +1,11 @@
+{
+  "name": "accounts-oidrc",
+  "description": "OpenID Connect service for an OpenID Connect Op",
+  "homepage": "https://github.com/DigitalDentalExchange/meteor-accounts-oidrc",
+  "author": "Michael Caplan <michael.caplan@henryschein.com>",
+  "version": "0.0.1",
+  "git": "https://github.com/DigitalDentalExchange/meteor-accounts-oidrc.git",
+  "packages": {
+    "oidrc": {}
+  }
+}

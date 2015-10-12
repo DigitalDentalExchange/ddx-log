@@ -5,5 +5,12 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
+accounts-ui
+service-configuration
+accounts-oauth
+oauth2
+oidrc
+accounts-oidrc
+templating
+http

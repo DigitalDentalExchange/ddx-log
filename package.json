@@ -1,0 +1,10 @@
+{
+  "name": "ddx-log",
+  "version": "0.1.0",
+  "description": "An example DDX app using authentication and API services.",
+  "scripts": {
+    "start": "meteor --settings settings-development.json",
+    "staging": "modulus env set METEOR_SETTINGS \"$(cat settings-production.json)\" -p 'App - Staging' && modulus deploy -f -p 'App - Staging'",
+    "production": "modulus env set METEOR_SETTINGS \"$(cat settings-production.json)\" -p 'App - Production' && modulus deploy -f -p 'App - Production'"
+  }
+}

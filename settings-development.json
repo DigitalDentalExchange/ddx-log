@@ -1,0 +1,9 @@
+{
+  "public": {
+    "domain": "ddxlaptop.com"
+  },
+  "private": {
+    "clientId": "meteor",
+    "clientSecret": "testpass"
+  }
+}

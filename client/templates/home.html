@@ -1,0 +1,26 @@
+<head>
+  <title>ddx</title>
+</head>
+
+<body>
+    {{> loginButtons}}
+
+    {{#if currentUser}}
+
+    <div class="container">
+
+        <header>
+            <h1>DDX Activity Log</h1>
+        </header>
+
+        <ul>
+            {{#each logItems}}
+                {{> logItem}}
+            {{/each}}
+        </ul>
+
+    </div>
+
+    {{/if}}
+
+</body>

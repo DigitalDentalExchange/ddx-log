@@ -1,0 +1,12 @@
+<template name="practiceUpdatedCase">
+
+    Case <a class="case"
+            target="_blank"
+            data-id="{{data.case.id}}"
+            data-labid="{{data.lab.id}}"
+            href="{{ddxUrl data.lab}}/cases/case/id/{{data.case.id}}">#{{data.case.id}}</a>
+    for <a href="{{ddxUrl data.lab}}">{{data.lab.name}}</a>
+    for patient <a href="{{ddxUrl}}/practice_portal/patient?id={{data.case.patient_id}}">{{data.case.patient.name}}</a>
+    was updated
+
+</template>

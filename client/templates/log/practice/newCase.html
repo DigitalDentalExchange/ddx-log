@@ -1,0 +1,32 @@
+<template name="practiceNewCase">
+
+    {{#if hasPatient}}
+
+        Case <a class="case"
+                data-id="{{data.case.id}}"
+                data-labid="{{data.lab.id}}"
+                href="{{ddxUrl data.lab}}/cases/case/id/{{data.case.id}}">#{{data.case.id}}</a>
+        created with <a href="{{ddxUrl data.lab}}">{{data.lab.name}}</a> for
+        patient <a href="{{ddxUrl}}/practice_portal/patient?id={{data.case.patient_id}}">{{data.case.patient.name}}</a>
+
+    {{else}}
+
+        Case <a class="case"
+                data-id="{{data.case.id}}"
+                data-labid="{{data.lab.id}}"
+                href="{{ddxUrl data.lab}}/cases/case/id/{{data.case.id}}">#{{data.case.id}}</a>
+        created with <a href="{{ddxUrl data.lab}}">{{data.lab.name}}</a>
+
+    {{/if}}
+    {{#if isRemakeCase}}
+
+        <div class="changes">
+
+            This case is a remake request for case <a class="case"
+                                                      data-id="{{data.case.id}}"
+                                                      data-labid="{{data.lab.id}}"
+                                                      href="{{ddxUrl data.lab}}/cases/case/id/{{data.case.return.case_id}}">{{data.case.return.case_id}}</a>
+        </div>
+    {{/if}}
+
+</template>
