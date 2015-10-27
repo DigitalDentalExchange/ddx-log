@@ -13,7 +13,8 @@ ServiceConfiguration.configurations.upsert(
             tokenEndpoint: '/service/default/token',
             userinfoEndpoint: '/service/default/userinfo',
             requestPermissions: ['openid', 'profile', 'offline_access', 'practice.log.read'],
-            loginStyle: 'popup'
+            loginStyle: (Meteor.isCordova ? 'redirect' : 'popup'),
+            checkSessionIframe: Meteor.settings.public.checkSessionIframe
         }
     }
 );

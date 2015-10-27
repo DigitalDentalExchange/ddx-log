@@ -2,30 +2,34 @@ Oidrc = {};
 
 Oauth.registerService('oidrc', 2, null, function (query) {
 
-    var tokens = getTokens(query);
-    var user = getUserProfile(tokens.access_token);
+    var response = getTokens(query);
+    var expiresAt = (+new Date) + (1000 * parseInt(response.expires_in, 10));
+    var accessToken = response.access_token;
+    var identity = getUserProfile(accessToken);
 
-    var username = user.name || user.email;
+    var username = identity.name || identity.email;
     var serviceData = {
-        id:           user.sub,
-        accessToken:  tokens.access_token,
-        refreshToken: tokens.refresh_token,
-        scope:        tokens.scope,
-        id_token:     tokens.id_token,
+        id:           identity.sub,
+        accessToken:  accessToken,
+        refreshToken: response.refresh_token,
+        scope:        response.scope,
+        id_token:     response.id_token,
+        expiresAt:    expiresAt,
+        sessionState: response.session_state,
         name:         username
     };
 
-    _.extend(serviceData, user);
+    _.extend(serviceData, identity);
 
     var profile = {
         name: username
     };
 
-    if (user.address) {
-        user.address = JSON.parse(user.address);
+    if (identity.address) {
+        identity.address = JSON.parse(identity.address);
     }
 
-    _.extend(profile, user);
+    _.extend(profile, identity);
 
     return {
         serviceData: serviceData,
@@ -104,6 +108,21 @@ var getConfiguration = function () {
     return config;
 };
 
-Oidrc.retrieveCredential = function(credentialToken) {
-    return Oauth.retrieveCredential(credentialToken);
+Oidrc.retrieveCredential = function(credentialToken, credentialSecret) {
+    var cred = OAuth.retrieveCredential(credentialToken, credentialSecret);
+    console.log(cred);
+    return cred;
 };
+
+Meteor.publish('oidrcSessionState', function(){
+    return Meteor.users.find(
+        {
+            _id: this.userId
+        },
+        {
+            fields: {
+                'services.oidrc.sessionState': 1
+            }
+        }
+    );
+});

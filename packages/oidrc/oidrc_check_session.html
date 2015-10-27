@@ -1,0 +1,22 @@
+<body>
+    {{> checkSessionIframe}}
+</body>
+
+<template name="checkSessionIframe">
+    {{#if checkSession}}
+        <iframe id="opFrame"
+                width="0"
+                height="0"
+                src="{{opPath}}"
+                onload="document.getElementById('rpFrame').contentWindow.setTimer();"
+                class="oidrc"
+                style="visibility: hidden; border: 0px; margin: 0px"></iframe>
+        <iframe id="rpFrame"
+                width="0"
+                height="0"
+                src="{{rpPath}}"
+                class="oidrc"
+                style="visibility: hidden; border: 0px; margin: 0px"></iframe>
+        {{setOrder}}
+    {{/if}}
+</template>

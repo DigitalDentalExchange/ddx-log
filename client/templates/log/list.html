@@ -1,0 +1,19 @@
+<template name="logList">
+    {{#if currentUser}}
+
+        <div class="container">
+
+            <header>
+                <h1>DDX Activity Log</h1>
+            </header>
+
+            <ul class="list-group">
+                {{#each logItems}}
+                    {{> logItem}}
+                {{/each}}
+            </ul>
+
+        </div>
+
+    {{/if}}
+</template>

@@ -1,6 +1,7 @@
 {
   "public": {
-    "domain": "ddxlaptop.com"
+    "domain": "ddxlaptop.com",
+    "checkSessionIframe": "https://www.ddxlaptop.com/check_session"
   },
   "private": {
     "clientId": "meteor",

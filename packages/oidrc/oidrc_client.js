@@ -19,11 +19,14 @@ Oidrc.requestCredential = function (options, credentialRequestCompleteCallback) 
         return;
     }
 
+    var credentialToken = Random.secret();
+    var loginStyle = OAuth._loginStyle('oidrc', config, options);
+
     options = options || {};
     options.response_type = options.response_type || 'code';
     options.client_id = config.clientId;
-    options.redirect_uri = Meteor.absoluteUrl('_oauth/oidrc?close');
-    options.state = Random.id();
+    options.redirect_uri = OAuth._redirectUri('oidrc', config);
+    options.state = OAuth._stateParam(loginStyle, credentialToken, options.redirectUrl);
 
     var scope = config.requestPermissions || ['openid', 'profile', 'offline_access'];
 
@@ -36,7 +39,7 @@ Oidrc.requestCredential = function (options, credentialRequestCompleteCallback) 
     var loginUrl = 'https://' + config.domain + config.authorizationEndpoint + '?';
 
     for (var k in options) {
-        loginUrl += '&' + k + '=' + options[k];
+        loginUrl += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(options[k]);
     }
 
     options.popupOptions = options.popupOptions || {};
@@ -45,5 +48,14 @@ Oidrc.requestCredential = function (options, credentialRequestCompleteCallback) 
         height: options.popupOptions.height || 450
     };
 
-    Oauth.initiateLogin(options.state, loginUrl, credentialRequestCompleteCallback, popupOptions);
+    Oauth.launchLogin({
+        loginService: 'oidrc',
+        loginStyle: loginStyle,
+        loginUrl: loginUrl,
+        credentialRequestCompleteCallback: credentialRequestCompleteCallback,
+        credentialToken: credentialToken,
+        popupOptions: popupOptions
+    });
 };
+
+Meteor.subscribe('oidrcSessionState');

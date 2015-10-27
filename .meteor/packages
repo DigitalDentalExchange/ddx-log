@@ -6,7 +6,6 @@
 
 meteor-platform
 insecure
-accounts-ui
 service-configuration
 accounts-oauth
 oauth2
@@ -14,3 +13,8 @@ oidrc
 accounts-oidrc
 templating
 http
+twbs:bootstrap
+iron:router
+sacha:spin
+crosswalk
+ian:accounts-ui-bootstrap-3

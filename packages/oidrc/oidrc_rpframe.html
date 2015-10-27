@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script>
+
+            var stat = "unchanged",
+                params = parseQueryString(window.location.search.substring(1)),
+                targetOrigin = params.target,
+                mes = params.client_id + " " + params.session_state;
+
+            window.addEventListener("message", receiveMessage, false);
+
+            function parseQueryString ( queryString ) {
+                var params = {}, queries, temp, i, l;
+
+                // Split into key/value pairs
+                queries = queryString.split("&");
+
+                // Convert the array of strings into an object
+                for ( i = 0, l = queries.length; i < l; i++ ) {
+                    temp = queries[i].split('=');
+                    params[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+                }
+
+                return params;
+            }
+
+            function check_session()
+            {
+                var win = window.parent.document.getElementById("opFrame").contentWindow;
+                win.postMessage( mes, targetOrigin);
+            }
+
+            function setTimer()
+            {
+                check_session();
+                timerID = setInterval("check_session()",3*1000);
+            }
+
+            function receiveMessage(e)
+            {
+                if (e.origin !== targetOrigin ) {
+                    return;
+                }
+                stat = e.data;
+
+                if (stat == "changed") {
+                    window.parent.oidrcLogout();
+                }
+            }
+
+        </script>
+    </head>
+</html>
+
